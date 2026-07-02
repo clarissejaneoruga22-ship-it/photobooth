@@ -1,64 +1,59 @@
 body {
     margin: 0;
     background: #ffedf5;
-    font-family: Arial;
+    font-family: sans-serif;
     display: flex;
     justify-content: center;
-    padding: 30px;
+    padding: 10px;
 }
 
 .container {
     text-align: center;
-    width: 450px;
+    width: 100%;
+    max-width: 450px;
 }
 
 video {
-    width: 420px;
-    height: 315px;
+    width: 100%;
+    aspect-ratio: 4/3;
     border-radius: 20px;
-    border: 10px solid white;
-    box-shadow: 0 10px 30px rgba(0,0,0,.2);
+    border: 5px solid white;
+    box-shadow: 0 5px 15px rgba(0,0,0,.1);
+    object-fit: cover;
 }
 
 canvas {
-    display: block;
-    margin: auto;
+    display: none;
     margin-top: 20px;
-    background: white;
-    border-radius: 20px;
-    box-shadow: 0 5px 20px rgba(0,0,0,.3);
+    width: 100%;
+    border-radius: 10px;
 }
 
-button {
-    padding: 12px 20px;
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+button, select {
+    padding: 12px 18px;
+    border-radius: 12px;
     border: none;
     background: #ff4fa1;
     color: white;
-    border-radius: 10px;
-    margin: 10px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-    button:hover {
-        background: #ff2d88;
-    }
-
-select {
-    padding: 10px;
-    border-radius: 10px;
-    margin-right: 10px;
+    font-weight: bold;
 }
 
 #countdown {
     position: absolute;
-    font-size: 100px;
+    font-size: 80px;
     color: white;
-    font-weight: bold;
+    top: 35%;
     left: 50%;
-    top: 45%;
     transform: translate(-50%,-50%);
-    text-shadow: 0 0 20px black;
+    text-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 
 .camera-area {

@@ -1,61 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>FunHouse Photo Booth</title>
-
-<link rel="stylesheet" href="style.css">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Cla Photo Booth</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-
-<div class="container">
-
-<h1>📸 FunHouse Photo Booth</h1>
-
-<div class="camera-area">
-
-<video id="video" autoplay playsinline></video>
-
-<div id="countdown"></div>
-
-</div>
-
-<div class="controls">
-
-<select id="filter">
-
-<option value="none">Normal</option>
-<option value="grayscale(100%)">Black & White</option>
-<option value="sepia(100%)">Vintage</option>
-<option value="brightness(120%)">Bright</option>
-<option value="contrast(130%)">Contrast</option>
-<option value="hue-rotate(40deg)">Pink</option>
-
-</select>
-
-<button id="captureBtn">
-Take Photo Strip
-</button>
-
-<button id="downloadBtn">
-Download
-</button>
-
-</div>
-
-<canvas id="canvas" width="420" height="1100"></canvas>
-
-</div>
-
-<script src="script.js"></script>
-
+    <div class="container">
+        <h1>📸 FunHouse</h1>
+        <div class="camera-area">
+            <video id="video" autoplay playsinline muted></video>
+            <div id="countdown"></div>
+        </div>
+        <div class="controls">
+            <select id="filter">
+                <option value="none">Normal</option>
+                <option value="grayscale(100%)">B&W</option>
+                <option value="sepia(100%)">Vintage</option>
+                <option value="hue-rotate(40deg)">Pink</option>
+            </select>
+            <button id="flipBtn">Flip Camera</button>
+            <button id="captureBtn">Take Strip</button>
+            <button id="downloadBtn">Save</button>
+        </div>
+        <canvas id="canvas"></canvas>
+    </div>
+    <script src="script.js"></script>
 </body>
-
 </html>
