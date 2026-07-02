@@ -4,27 +4,31 @@ const ctx = canvas.getContext("2d");
 const filterSelect = document.getElementById("filter");
 const countdown = document.getElementById("countdown");
 
-// Start camera (Front Camera)
 async function startCamera() {
     try {
         const stream = await navigator.mediaDevices.getUserMedia({
             video: { facingMode: "user" },
             audio: false
         });
+
         video.srcObject = stream;
-        await video.play();
+        // Siguraduhin na ang video ay pwedeng mag-play nang inline
+        video.setAttribute("playsinline", true);
+        video.play().catch(e => {
+            console.error("Autoplay failed:", e);
+            alert("Pakipindot ang screen o i-allow ang autoplay.");
+        });
     } catch (err) {
-        console.error("Error accessing camera: ", err);
-        alert("Hindi ma-access ang camera. Siguraduhing naka-allow ang permission.");
+        console.error("Error:", err);
+        alert("Camera Error: " + err.message);
     }
 }
 
-// I-apply ang filter sa video preview gamit ang CSS variable
 filterSelect.onchange = () => {
-    video.style.setProperty("--video-filter", filterSelect.value);
+    // Para sa CSS filter
+    video.style.filter = filterSelect.value;
 };
 
-// Function para kumuha ng 3 shots
 async function takeStrip() {
     canvas.width = 420;
     canvas.height = 1100;
@@ -32,18 +36,14 @@ async function takeStrip() {
     ctx.fillRect(0, 0, 420, 1100);
 
     for (let i = 0; i < 3; i++) {
-        // Countdown
         for (let c = 3; c >= 1; c--) {
             countdown.innerHTML = c;
             await new Promise(r => setTimeout(r, 1000));
         }
         countdown.innerHTML = "";
 
-        // I-apply ang napiling filter sa canvas
         ctx.filter = filterSelect.value;
         ctx.drawImage(video, 35, 80 + i * 320, 350, 260);
-
-        // Reset filter para sa border
         ctx.filter = "none";
         ctx.strokeRect(35, 80 + i * 320, 350, 260);
     }
@@ -52,9 +52,7 @@ async function takeStrip() {
     canvas.scrollIntoView({ behavior: "smooth" });
 }
 
-// Event Listeners
 document.getElementById("captureBtn").onclick = takeStrip;
-
 document.getElementById("downloadBtn").onclick = () => {
     const a = document.createElement("a");
     a.download = "ClaPhotoBooth.png";
@@ -62,5 +60,4 @@ document.getElementById("downloadBtn").onclick = () => {
     a.click();
 };
 
-// Start pag-load ng page
 startCamera();
