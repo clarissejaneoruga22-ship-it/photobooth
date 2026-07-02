@@ -13,6 +13,10 @@ body {
     max-width: 450px;
 }
 
+.camera-area {
+    position: relative;
+}
+
 video {
     width: 100%;
     aspect-ratio: 4/3;
@@ -20,6 +24,7 @@ video {
     border: 5px solid white;
     box-shadow: 0 5px 15px rgba(0,0,0,.1);
     object-fit: cover;
+    filter: var(--video-filter, none);
 }
 
 canvas {
@@ -31,7 +36,6 @@ canvas {
 
 .controls {
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
     gap: 10px;
     margin-top: 15px;
@@ -44,6 +48,7 @@ button, select {
     background: #ff4fa1;
     color: white;
     font-weight: bold;
+    cursor: pointer;
 }
 
 #countdown {
@@ -54,8 +59,5 @@ button, select {
     left: 50%;
     transform: translate(-50%,-50%);
     text-shadow: 0 0 10px rgba(0,0,0,0.5);
-}
-
-.camera-area {
-    position: relative;
+    pointer-events: none;
 }
