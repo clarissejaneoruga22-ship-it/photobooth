@@ -1,0 +1,66 @@
+body {
+    margin: 0;
+    background: #ffedf5;
+    font-family: Arial;
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+}
+
+.container {
+    text-align: center;
+    width: 450px;
+}
+
+video {
+    width: 420px;
+    height: 315px;
+    border-radius: 20px;
+    border: 10px solid white;
+    box-shadow: 0 10px 30px rgba(0,0,0,.2);
+}
+
+canvas {
+    display: block;
+    margin: auto;
+    margin-top: 20px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,.3);
+}
+
+button {
+    padding: 12px 20px;
+    border: none;
+    background: #ff4fa1;
+    color: white;
+    border-radius: 10px;
+    margin: 10px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+    button:hover {
+        background: #ff2d88;
+    }
+
+select {
+    padding: 10px;
+    border-radius: 10px;
+    margin-right: 10px;
+}
+
+#countdown {
+    position: absolute;
+    font-size: 100px;
+    color: white;
+    font-weight: bold;
+    left: 50%;
+    top: 45%;
+    transform: translate(-50%,-50%);
+    text-shadow: 0 0 20px black;
+}
+
+.camera-area {
+    position: relative;
+}
