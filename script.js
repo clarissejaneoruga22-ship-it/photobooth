@@ -1,47 +1,66 @@
 const video = document.getElementById("video");
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
-const filter = document.getElementById("filter");
+const filterSelect = document.getElementById("filter");
 const countdown = document.getElementById("countdown");
-let currentFacingMode = "user";
 
+// Start camera (Front Camera)
 async function startCamera() {
-    const stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: currentFacingMode }
-    });
-    video.srcObject = stream;
+    try {
+        const stream = await navigator.mediaDevices.getUserMedia({
+            video: { facingMode: "user" },
+            audio: false
+        });
+        video.srcObject = stream;
+        await video.play();
+    } catch (err) {
+        console.error("Error accessing camera: ", err);
+        alert("Hindi ma-access ang camera. Siguraduhing naka-allow ang permission.");
+    }
 }
 
-document.getElementById("flipBtn").onclick = () => {
-    currentFacingMode = currentFacingMode === "user" ? "environment" : "user";
-    startCamera();
+// I-apply ang filter sa video preview gamit ang CSS variable
+filterSelect.onchange = () => {
+    video.style.setProperty("--video-filter", filterSelect.value);
 };
 
+// Function para kumuha ng 3 shots
 async function takeStrip() {
-    canvas.width = 420; canvas.height = 1100;
-    ctx.fillStyle = "white"; ctx.fillRect(0, 0, 420, 1100);
+    canvas.width = 420;
+    canvas.height = 1100;
+    ctx.fillStyle = "white";
+    ctx.fillRect(0, 0, 420, 1100);
 
     for (let i = 0; i < 3; i++) {
+        // Countdown
         for (let c = 3; c >= 1; c--) {
             countdown.innerHTML = c;
             await new Promise(r => setTimeout(r, 1000));
         }
         countdown.innerHTML = "";
-        ctx.filter = filter.value;
+
+        // I-apply ang napiling filter sa canvas
+        ctx.filter = filterSelect.value;
         ctx.drawImage(video, 35, 80 + i * 320, 350, 260);
+
+        // Reset filter para sa border
         ctx.filter = "none";
         ctx.strokeRect(35, 80 + i * 320, 350, 260);
     }
+
     canvas.style.display = "block";
     canvas.scrollIntoView({ behavior: "smooth" });
 }
 
+// Event Listeners
 document.getElementById("captureBtn").onclick = takeStrip;
+
 document.getElementById("downloadBtn").onclick = () => {
     const a = document.createElement("a");
-    a.download = "funhouse.png";
+    a.download = "ClaPhotoBooth.png";
     a.href = canvas.toDataURL("image/png");
     a.click();
 };
 
+// Start pag-load ng page
 startCamera();
